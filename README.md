@@ -2,13 +2,15 @@
 
 This repository contains a Python implementation of an Ising Model simulator. The simulation is based on the Monte Carlo method and uses the Metropolis algorithm with the Maxwell-Boltzmann distribution to study the statistical mechanics of a 2D spin system. The core functionality is implemented in the `IsingModelClass`.
 
-![Ising Model Animation](ising_model_1.gif)
+<p align="center">
+	<img src="ising_model_1.gif" alt="Ising Model Animation">
+</p>
 
 ## Features ✨
 - Implements the Ising Model in two dimensions using a Python class.
 - Utilizes the Metropolis algorithm for state evolution.
 - Configurable simulation parameters such as lattice size, temperature, coupling strength (J), and external magnetic field (h).
-- Visualizes spin configurations, magnetization, and energy evolution.
+- Visualizes spin configurations, magnetization, and energy evolution with the possibility of saving animations and changing colormaps.
 - Supports animations of the spin dynamics and phase transitions.
 
 ## Requirements 📋
@@ -57,19 +59,20 @@ The `IsingModelClass` allows you to configure the following parameters:
 ### Example Usage 💻
 Below is an example of how to use the `IsingModelClass` programmatically:
 ```python
-from ising_model import IsingModelClass
+from IsingModel import IsingModelClass
 
 # Initialize the model
-model = IsingModelClass(size=20, temperature=2.5, J=1, h=0.1)
-
-# Simulate and plot magnetization
-model.plot_magnetization(steps=10000)
-
-# Simulate and plot system's energy
-model.plot_energy(steps=10000)
+model = IsingModelClass(size=20, temperature=50, J=3e-21, h=5e-22)
+print(model)
 
 # Animate the spin dynamics
-model.animate(steps=10000, file_name="ising_simulation")
+model.animate(steps=10000, file_name="ising_simulation", cmap="gray")
+
+# Simulate and plot magnetization
+model.plot_magnetization(steps=10000, cmap="coolwarm")
+
+# Simulate and plot system's energy
+model.plot_energy(steps=10000, cmap="viridis")
 ```
 
 ## Files 📁

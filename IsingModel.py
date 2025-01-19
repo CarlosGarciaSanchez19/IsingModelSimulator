@@ -58,13 +58,16 @@ class IsingModelClass:
 					print(f"Step {step}/{steps} completed.")
 		return self.energies, self.magnetizations
 	
-	def animate(self, steps, file_name="ising_model"):
-		frames = 150
+	def animate(self, steps, file_name="ising_model", cmap="spring"):
+		self.fst_frame = True
+		if steps < 150:
+			self.frames = steps
+		self.frames = 150
 		fig, ax = plt.subplots(figsize=(6, 6))
 		ax.set_title(f"Ising Model at T = " + str(self.temperature) + " K,\n Interaction strenght of " + str(self.J) + " J\n and an external magnetic field of " + str(self.h) + " J")
 		ax.set_xlim(0, self.size)
 		ax.set_ylim(0, self.size)
-		im = ax.imshow(self.spins, cmap="spring", vmin=-1, vmax=1)
+		im = ax.imshow(self.spins, cmap=cmap, vmin=-1, vmax=1)
 		fig.colorbar(im, ax=ax, label='Spin')
 
 		if hasattr(self, "magnetizations"):
@@ -73,12 +76,15 @@ class IsingModelClass:
 		if hasattr(self, "energies"):
 			delattr(self, "energies")
 
-		self.energies = np.zeros(frames)
-		self.magnetizations = np.zeros(frames)
+		self.energies = np.zeros(self.frames)
+		self.magnetizations = np.zeros(self.frames)
 
 		def update(frame):
-			for _ in range(steps // frames):
-				self.metropolis_step()
+			if self.fst_frame:
+				self.fst_frame = False
+			else:
+				for _ in range(steps // self.frames):
+					self.metropolis_step()
 			self.energies[frame] = -self.J * np.sum(
 				np.multiply(self.spins, np.roll(self.spins, 1, axis=0)) +
 				np.multiply(self.spins, np.roll(self.spins, 1, axis=1))
@@ -87,36 +93,42 @@ class IsingModelClass:
 			im.set_array(self.spins)
 			return [im]
 		
-		anim = FuncAnimation(fig, update, frames=frames, interval=100, blit=True)
+		anim = FuncAnimation(fig, update, frames=self.frames, interval=100, blit=True)
 		anim.save(file_name + ".gif", fps=30)
 		plt.close()
 
-	def plot_energy(self, steps):
+	def plot_energy(self, steps, cmap="spring"):
 		energies = self.simulate(steps)[0]
 		fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3))
 
-		ax1.plot(energies, color="red")
+		if hasattr(self, "frames"):
+			ax1.plot([i * steps // self.frames for i in range(0, self.frames)], energies, color="red")
+		else:
+			ax1.plot(energies, color="red")
 		ax1.set_title("System energy")
 		ax1.set_xlabel("Step")
 		ax1.set_ylabel("Energy [J]")
 
-		cax = ax2.imshow(self.spins, cmap="spring", vmin=-1, vmax=1)
+		cax = ax2.imshow(self.spins, cmap=cmap, vmin=-1, vmax=1)
 		ax2.set_title("Final spin configuration")
 		fig.colorbar(cax, ax=ax2, label='Spin')
-
+	
 		plt.tight_layout()
 		plt.show()
 	
-	def plot_magnetization(self, steps):
+	def plot_magnetization(self, steps, cmap="spring"):
 		magnetizations = self.simulate(steps)[1]
 		fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3))
 
-		ax1.plot(magnetizations, color="blue")
+		if hasattr(self, "frames"):
+			ax1.plot([i * steps // self.frames for i in range(0, self.frames)], magnetizations, color="blue")
+		else:
+			ax1.plot(magnetizations, color="blue")
 		ax1.set_title("Magnetization")
 		ax1.set_xlabel("Step")
 		ax1.set_ylabel("Magnetization per spin [J]")
 
-		cax = ax2.imshow(self.spins, cmap="spring", vmin=-1, vmax=1)
+		cax = ax2.imshow(self.spins, cmap=cmap, vmin=-1, vmax=1)
 		ax2.set_title("Final spin configuration")
 		fig.colorbar(cax, ax=ax2, label='Spin')
 
