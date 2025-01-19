@@ -50,6 +50,7 @@ The `IsingModelClass` allows you to configure the following parameters:
 
 ### Methods 📚
 - `reset_model()`: Resets the spin lattice to a random state.
+- `calc_energy()`: Calculates the system's energy after a random spin flip.
 - `calc_curie_temperature()`: Calculates the Curie temperature for the model.
 - `simulate(steps)`: Runs the simulation for a specified number of steps and records magnetization.
 - `animate(steps, file_name)`: Creates an animation of the spin dynamics.
@@ -78,6 +79,7 @@ model.plot_energy(steps=10000, cmap="viridis")
 ## Files 📁
 - `IsingModelSimulation.ipynb`: Jupyter Notebook with simulation and visualization examples.
 - `IsingModel.py`: Python script containing the `IsingModelClass` implementation.
+- `SimulationExample`: Folder with example simulation results.
 
 ## Example Output 📊
 The simulator provides:
