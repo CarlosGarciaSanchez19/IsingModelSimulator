@@ -2,6 +2,8 @@
 
 This repository contains a Python implementation of an Ising Model simulator. The simulation is based on the Monte Carlo method and uses the Metropolis algorithm with the Maxwell-Boltzmann distribution to study the statistical mechanics of a 2D spin system. The core functionality is implemented in the `IsingModelClass`.
 
+![Ising Model Animation](ising_model_1.gif)
+
 ## Features ✨
 - Implements the Ising Model in two dimensions using a Python class.
 - Utilizes the Metropolis algorithm for state evolution.
