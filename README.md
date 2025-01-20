@@ -11,13 +11,12 @@ This repository contains a Python implementation of an Ising Model simulator. Th
 - Utilizes the Metropolis algorithm for state evolution.
 - Configurable simulation parameters such as lattice size, temperature, coupling strength (J), and external magnetic field (h).
 - Visualizes spin configurations, magnetization, and energy evolution with the possibility of saving animations and changing colormaps.
-- Supports animations of the spin dynamics and phase transitions.
 
 ## Requirements 📋
 To run this simulator, you need:
 
 - Python (>=3.7)
-- Jupyter Notebook
+- Jupyter notebook
 - NumPy
 - Matplotlib
 
@@ -35,10 +34,10 @@ pip install numpy matplotlib
 
 2. Open the Jupyter Notebook:
 	```bash
-	jupyter notebook ising_model_simulation.ipynb
+	jupyter notebook SimulationExample.ipynb
 	```
 
-3. Configure the parameters (e.g., lattice size, temperature) in the notebook and run the simulation cells.
+3. Configure the parameters (e.g., lattice size, temperature) in the notebook and run the cell.
 
 ## Usage 🛠️
 ### Configurable Parameters ⚙️
